@@ -1,0 +1,329 @@
+/* ==========================================================================
+   1. STRUCTURE GLOBALE (Le squelette du site)
+   ========================================================================== */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Anton', sans-serif;
+    font-size: large;
+}
+
+.contenu-principal {
+    flex: 1; /* Pousse le footer vers le bas */
+}
+
+/* ==========================================================================
+   2. ARRIÈRE-PLAN (Image floutée)
+   ========================================================================== */
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url("../images/kronos_island_background.png"); 
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    transform: scale(1.1); 
+}
+
+
+/* ==========================================================================
+   3. LIENS ET INTERACTIONS (Comportements globaux)
+   ========================================================================== */
+
+a, a:visited {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+a:hover {
+    transform: scale(1.1);
+}
+
+.menu_accueil:visited{
+    color: #757D7D;
+}
+
+.menu:visited{
+    color: #757D7D;
+}
+
+#liens:hover {
+    color: #3E7F9F;
+    text-decoration: underline;
+}
+
+#liens {
+    text-decoration: underline;
+}
+
+.photos_rondes:hover{
+    color: #3E7F9F;
+    text-decoration: underline;
+    transition: transform 0.3s ease;
+    transform: scale(1);
+}
+
+/* ==========================================================================
+   4. EN-TÊTE ET NAVIGATION (Haut de page)
+   ========================================================================== */
+
+.entete-jeu {
+    display: flex;
+    justify-content: space-between; /* Pousse le titre à gauche et le menu à droite */
+    align-items: center;            /* Centre verticalement les deux blocs */
+    padding: 150px 10%;              /* Donne de l'air sur les côtés (ajuste le 10%) */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navigation_accueil {
+    display: flex;
+    flex-direction: column;         /* Aligne les boutons de haut en bas */
+    align-items: flex-end;          /* Aligne le texte des boutons à droite */
+    padding: 15px 15%;
+    gap: 15px;                      /* Espace entre chaque bouton */
+}
+
+#titre_site {
+    position: center; 
+    border: 2px solid;
+    border-radius: 2px;
+    text-align: center;
+    font-size: x-large;
+    background: #3E7F9F;;
+    text-decoration: none;
+}
+.navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.menu {
+    position: relative; 
+    font-family: 'Anton', sans-serif;
+    color: #757D7D;
+    text-decoration: none;
+    font-size: 24px;
+    padding: 10px 20px;
+    transition: 0.3s;
+    display: inline-block; /* Assure que le lien englobe bien tout le texte */
+}
+
+.menu::before { 
+    content: "";
+    position: absolute;
+    
+    /* On centre la barre horizontalement */
+    left: 0%;            
+    width: 100%;          /* Elle prend 90% de la largeur du texte */
+    
+    /* On la place en bas */
+    bottom: 0;           /* Collée au bas du padding */
+    height: 4px;         /* L'épaisseur de ta barre horizontale */
+    
+    background-color: #5CC8F2;
+    opacity: 0;
+    transition: 0.3s;
+    transform: translateY(5px); /* Petit décalage vers le bas pour l'effet d'entrée */
+}
+
+.menu.page-active {
+    color: #ffffff;
+}
+
+.menu.page-active::before {
+    opacity: 1;
+    transform: translateY(0); /* La barre reste bien en place */
+}
+
+.menu:hover {
+    color: #ffffff;
+    background-color: #3E7F9F;
+    /* On enlève le translateX pour éviter que le texte ne bouge sur le côté */
+    transform: translateY(-3px); /* Le texte monte très légèrement au survol */
+}
+
+.menu:hover::before {
+    opacity: 1;
+    transform: translateY(0); /* La barre remonte à sa place */
+}
+
+.menu_accueil {
+    position: relative; 
+    font-family: 'Anton', sans-serif;
+    color: #757D7D;
+    text-decoration: none;
+    font-size: 24px;
+    padding: 10px 20px;
+    transition: 0.3s;
+}
+
+.menu_accueil::before { /* La barre bleu */
+    content: "";
+    position: absolute;
+    left: -10px;         /* Ajuste pour coller au texte */
+    top: 15%;
+    height: 70%;
+    width: 8px;
+    background-color: #5CC8F2;
+    opacity: 0;          /* Invisible au repos */
+    transition: 0.3s;    /* Animation fluide */
+}
+
+/* Quand on survole le menu, la barre devient visible */
+.menu_accueil:hover {
+    color: #ffffff;      /* Le texte change de couleur aussi */
+    transform: translateX(10px); /* Le bouton se décale un peu vers la droite */
+}
+
+.menu_accueil:hover::before {
+    opacity: 1;          /* La barre apparaît ! */
+}
+/* ==========================================================================
+   5. CONTENU ET BLOCS (Corps de page)
+   ========================================================================== */
+
+.desc {
+    max-width: 800px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(#C8CDCF, #939FA1);
+    border: 2px solid black;
+    border-radius: 10px;   
+    padding: 20px;
+    text-align: center;
+    line-height: 2.0;
+    box-sizing: border-box;
+}
+
+/* Section Expériences avec colonnes */
+.xp_pro {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.tab {
+    color: black;
+    background: linear-gradient(#C8CDCF, #939FA1);
+    border: 2px solid black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: auto;
+    min-width: 150px;
+    max-width: 650px; 
+    height: auto;
+    min-height: 50px;
+    flex: 2;
+}
+
+/* Colonne Photos et Légendes */
+.colonne-photos {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    text-align: center;
+    justify-content: center; 
+}
+
+.photos {
+    border: 2px solid black;
+    border-radius: 15px;
+    width: 426px;
+    height: auto;
+}
+
+.grille-photos {
+    display: flex;
+    flex-wrap: wrap;      /* Permet de passer à la ligne */
+    justify-content: center; 
+    gap: 30px;            /* Espace entre les blocs */
+    max-width: 800px;     /* Pour que 2 photos de 300px tiennent largement */
+    margin: 20px auto;
+}
+
+.item-photo {
+    /* Pour avoir 2 photos par ligne, on calcule : 50% de la largeur moins le gap */
+    width: calc(50% - 15px); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centre l'image et la légende verticalement */
+    text-align: center;
+}
+
+.photos_rondes {
+    border: 2px solid black; /* Pour garder ton style actuel */
+    border-radius: 50%;      /* C'est ce qui crée le cercle */
+    
+    /* Pour que l'image soit un cercle, elle DOIT avoir la même largeur et hauteur */
+    width: 200px; 
+    height: 200px;
+    
+    /* Très important : empêche l'image d'être écrasée ou étirée */
+    object-fit: cover; 
+    
+    /* Optionnel : pour que l'image reste centrée si elle est dans une colonne */
+    display: block;
+    margin: 0 auto;
+}
+
+.legende {
+    font-family: 'Anton', sans-serif;
+    background: linear-gradient(#C8CDCF, #939FA1);
+    border: 2px solid black;
+    border-radius: 10px;   
+    padding: 10px;
+    text-align: center;
+    width: 350px;
+    margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   6. PIED DE PAGE (Footer)
+   ========================================================================== */
+
+.pied_de_page {
+    background: linear-gradient(#C8CDCF, #939FA1);
+    border-top: 2px solid black;
+    padding: 10px;
+    margin-top: 50px;
+    font-family: 'Anton', sans-serif;
+    text-align: center;
+    color: black;
+}
+
+.footer-links a {
+    margin: 0 15px;
+    color: black;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+    color: #3E7F9F;
+    opacity: 0.8;
+}
